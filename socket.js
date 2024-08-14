@@ -16,6 +16,17 @@ let motor_psm_cbuf = new Dequeue(cbuf_len, 0);
 let acceleration_cbuf = new Dequeue(cbuf_len, 0);
 let regen_cbuf = new Dequeue(cbuf_len, 0);
 
+// -- READOUTS -- //
+const hall_effect_readout = document.getElementById("hall_effect_readout");
+const motor_psm_readout = document.getElementById("motor_psm_readout");
+const acceleration_readout = document.getElementById("acceleration_readout");
+const regen_readout = document.getElementById("regen_readout");
+const motor_state_readout = document.getElementById("motor_state_readout");
+const vfm_readout = document.getElementById("vfm_readout");
+
+const acceleration_slider_readout = document.getElementById("acceleration_slider_readout");
+const regen_slider_readout = document.getElementById("regen_slider_readout");
+
 //  -- GRAPHING -- //
 const hall_effect_chart_ctx = document.getElementById("hall_effect_chart").getContext("2d");
 const motor_psm_chart_ctx = document.getElementById("motor_psm_chart").getContext("2d");
@@ -54,11 +65,18 @@ socket.onopen = function(event) {
 socket.onmessage = function(event) {
       // Handle received message
       json_obj = JSON.parse(event.data);
+      
+      let hall_effect_data = json_obj.hall_effect;
+      let motor_psm_data = json_obj.motor_psm;
+      let acceleration_data = json_obj.acceleration;
+      let regen_data = json_obj.regen;
+      let motor_state_data = json_obj.motor_state;
+      let vfm_data = json_obj.vfm;
     
-      hall_effect_cbuf.push(json_obj.hall_effect);
-      motor_psm_cbuf.push(json_obj.motor_psm);
-      acceleration_cbuf.push(json_obj.acceleration);
-      regen_cbuf.push(json_obj.regen);
+      hall_effect_cbuf.push(hall_effect_data);
+      motor_psm_cbuf.push(motor_psm_data);
+      acceleration_cbuf.push(acceleration_data);
+      regen_cbuf.push(regen_data);
     
       hall_effect_chart.data.datasets[0].data = hall_effect_cbuf.buffer;
       motor_psm_chart.data.datasets[0].data = motor_psm_cbuf.buffer;
@@ -69,7 +87,19 @@ socket.onmessage = function(event) {
       motor_psm_chart.update();
       acceleration_chart.update();
       regen_chart.update();
-      //document.getElementById("latest_msg").innerHTML = "LAST WS MSG: ".concat(acceleration_cbuf.buffer);
+      
+      hall_effect_readout.innerHTML = "[".concat(hall_effect_data.toFixed(2)).concat("]");
+      motor_psm_readout.innerHTML = "[".concat(motor_psm_data.toFixed(2)).concat("]");
+      acceleration_readout.innerHTML = "[".concat(acceleration_data.toFixed(2)).concat("]");
+      regen_readout.innerHTML = "[".concat(regen_data.toFixed(2)).concat("]");
+      
+      motor_state_readout.innerHTML = "MOTOR: ".concat(motor_state_data.toUpperCase());
+      vfm_readout.innerHTML = "VFM: ".concat(vfm_data);
+      
+      acceleration_slider_readout.value = acceleration_data*100;
+      regen_slider_readout.value = regen_data*100;
+      
+    //document.getElementById("latest_msg").innerHTML = "LAST WS MSG: ".concat(acceleration_cbuf.buffer);
 };
 
 socket.onclose = function(event) {

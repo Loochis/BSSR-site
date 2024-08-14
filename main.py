@@ -31,6 +31,10 @@ async def parse_xbee(cmd_str):
         print("Too Few Args")
         return
     match(cmd[0]):
+        case "hall_effect":
+            data_manager.hall_effect = float(cmd[1])
+        case "motor_psm":
+            data_manager.motor_psm = float(cmd[1])
         case "motor_state":
             data_manager.motor_state = cmd[1]
         case "regen":

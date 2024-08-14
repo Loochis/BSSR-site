@@ -8,27 +8,33 @@
           <div class="controls panel">
             <p class="text_center">DYNO CONTROLS</p>
               <div class="control_buttons">
-                <div class="button_group">
-                  <button class="button_input tooltip" onclick="set_motor_state('on')"  id="motor_state_on_button">
-                    <span class="tooltiptext non_interactive sub_panel">Motor ON</span>
-                  </button>
-                  <button class="button_input tooltip" onclick="set_motor_state('off')" id="motor_state_off_button">
-                    <span class="tooltiptext non_interactive sub_panel">Motor OFF</span>
-                  </button>
+                <div class="readout_group">
+                  <div class="button_group">
+                    <button class="button_input tooltip" onclick="set_motor_state('on')"  id="motor_state_on_button">
+                      <span class="tooltiptext non_interactive sub_panel">Motor ON</span>
+                    </button>
+                    <button class="button_input tooltip" onclick="set_motor_state('off')" id="motor_state_off_button">
+                      <span class="tooltiptext non_interactive sub_panel">Motor OFF</span>
+                    </button>
+                  </div>
+                  <div class="readout_text" id="motor_state_readout">MOTOR: OFF</div>
                 </div>
-                <div class="button_group">
-                  <button class="button_input tooltip" onclick="set_vfm('up')"          id="vfm_up_button">
-                    <span class="tooltiptext non_interactive sub_panel">Increase VFM</span>
-                  </button>
-                  <button class="button_input tooltip" onclick="set_vfm('down')"        id="vfm_down_button">
-                    <span class="tooltiptext non_interactive sub_panel">Decrease VFM</span>
-                  </button>
+                <div class="readout_group">
+                  <div class="button_group">
+                    <button class="button_input tooltip" onclick="set_vfm('up')"          id="vfm_up_button">
+                      <span class="tooltiptext non_interactive sub_panel">Increase VFM</span>
+                    </button>
+                    <button class="button_input tooltip" onclick="set_vfm('down')"        id="vfm_down_button">
+                      <span class="tooltiptext non_interactive sub_panel">Decrease VFM</span>
+                    </button>
+                  </div>
+                  <div class="readout_text" id="vfm_readout">VFM: 0</div>
                 </div>
               </div>
               <div class="control_slider">
                 <div class="dual_slider">
                   <input type="range" min="0" max="100" value="0" class="slider_input" id="acceleration_slider">
-                  <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="acceleration_slider_vis">
+                  <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="acceleration_slider_readout">
                 </div>
                 <input type="number" min="0" max="100" value="0" class="number_input"  id="acceleration_number">
                 <button type="button" class="button_input tooltip" id="acceleration_button" onclick="set_acceleration()">
@@ -38,7 +44,7 @@
               <div class="control_slider">
                 <div class="dual_slider">
                   <input type="range" min="0" max="100" value="0" class="slider_input" id="regen_slider">
-                  <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="regen_slider_vis">
+                  <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="regen_slider_readout">
                 </div>
                 <input type="number" min="0" max="100" value="0" class="number_input"  id="regen_number">
                 <button type="button" class="button_input tooltip" id="regen_button" onclick="set_regen()">
@@ -63,20 +69,32 @@
         </div>
         <div class="left_side_container">
           <div class="graph_wrap panel">
-            <p class="text_center text_scaled">HALL EFFECT (RPM)</p>
+            <div class="flex_row">
+              <p class="text_left text_scaled">HALL EFFECT (RPM)</p>
+              <p class="text_right text_scaled" id="hall_effect_readout">[0.00]</p>
+            </div>
             <canvas id="hall_effect_chart" class="graph"></canvas>
           </div>
           <div class="graph_wrap panel">
-            <p class="text_center text_scaled">MOTOR PSM</p>
+            <div class="flex_row">
+              <p class="text_left text_scaled">MOTOR PSM (V..?)</p>
+              <p class="text_right text_scaled" id="motor_psm_readout">[0.00]</p>
+            </div>
             <canvas id="motor_psm_chart" class="graph"></canvas>
           </div>
           <div class="h_group">
             <div class="graph_wrap panel">
-              <p class="text_center text_scaled">ACCELERATION</p>
+              <div class="flex_row">
+                <p class="text_left text_scaled">ACCELERATION (FRAC)</p>
+                <p class="text_right text_scaled" id="acceleration_readout">[0.00]</p>
+              </div>
               <canvas id="acceleration_chart" class="graph"></canvas>
             </div>
             <div class="graph_wrap panel">
-              <p class="text_center text_scaled">REGENERATION</p>
+              <div class="flex_row">
+                <p class="text_left text_scaled">REGENERATION (FRAC)</p>
+                <p class="text_right text_scaled" id="regen_readout">[0.00]</p>
+              </div>
               <canvas id="regen_chart" class="graph"></canvas>
             </div>
           </div>

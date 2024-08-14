@@ -44,6 +44,24 @@ p {
     text-align: center;
 }
 
+.text_right {
+    text-align: right;
+    flex-grow: 1;
+    margin: 2vh 1vw;
+}
+
+.text_left {
+    text-align: left;
+    flex-grow: 1;
+    margin: 2vh 1vw;
+}
+
+.flex_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 /* CONTAINERS */
 
 .container_super {
@@ -209,7 +227,7 @@ p {
     flex-shrink: 1;
     border: none;
     /*margin: 2vh 1vw;*/
-    margin: 0 0;
+    margin: 1vh 0;
     min-width: 3vw;
     width: 3vw;
     height: 3vw;
@@ -218,9 +236,17 @@ p {
     background-size: cover;
     image-rendering: smooth;
 
-    transition: background-color 0.1s;
+    transition: background-color 0.1s, box-shadow 0.2s;
 }
 
+.button_input:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px white;
+}
+
+.button_input:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
 #motor_state_on_button {
     background-image: url('Assets/Icons/power_on_scaled.png');
 }
@@ -245,12 +271,17 @@ p {
     background-image: url('Assets/Icons/set_regen_scaled.png');
 }
 
-.button_input:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+.readout_group {
+    margin: 0 0;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.button_input:active {
-    background-color: rgba(255, 255, 255, 0.2);
+.readout_text {
+    margin: 0 0;
+    flex-grow: 1;
+    text-align: center;
 }
 
 .console {
