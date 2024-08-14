@@ -1,0 +1,341 @@
+* {
+    font-family: Verdana, sans-serif;
+    color: white;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("Assets/Background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+    background-position: center;
+    /*background: #262626;*/
+}
+
+.blurbox_main {
+    background: rgba(24,24,24,0.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+h1 {
+    
+}
+
+h2 {
+    font-family: Verdana, sans-serif;
+    color: white;
+}
+
+p {
+    font-family: Verdana, sans-serif;
+    color: white;
+}
+
+.text_center {
+    text-align: center;
+}
+
+/* CONTAINERS */
+
+.container_super {
+    display: flex;
+    /*flex-direction: column;*/
+}
+
+.right_side_container {
+    display: flex;
+    flex-direction: column;
+    flex: 0.6;
+    top: 0;
+    bottom: 0;
+    min-width: 30vw;
+}
+
+.left_side_container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.panel {
+    backdrop-filter: blur(40px);
+    background-color: rgba(24,24,24,0.4);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+}
+
+.sub_panel {
+    background-color: rgba(24,24,24,0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+
+.h_group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.graph_wrap {
+    flex: 1;
+    margin: 2vh 1vw;
+    /*padding: 1%;*/
+}
+
+.graph {
+    min-width: 0;
+    min-height: 0;
+    background: rgba(0,0,0,0);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    margin: 2vh 1vw;
+    position: relative;
+    flex: 1;
+}
+
+.control_slider {
+    flex-shrink: 1;
+    margin-top: 2vh;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.dual_slider {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.slider_input {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    position: relative;
+    flex: 1;
+    background: rgba(255,255,255, 0);
+    overflow: hidden;
+    
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.2);
+}
+
+.slider_input:hover {
+    background-color: rgba(255,255,255, 0.1);
+    border-color: rgba(255,255,255,0.4);
+}
+
+.slider_input::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 2px;
+    height: 1vw;
+    background: rgb(255, 255, 255); /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    box-shadow: -20vw 0 0 20vw rgba(255,255,255,0.3);
+}
+
+.slider_input.non_interactive::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 0;
+    height: 1vw;
+    background: rgba(255, 255, 255, 0); /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    box-shadow: -20vw 0 0 20vw rgba(255,255,255,0.3);
+}
+
+.non_interactive {
+    pointer-events: none;
+    tab-index: -1;
+}
+
+/* NUMBER INPUT */
+
+.number_input {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0 1vw;
+    top: 0;
+    bottom: 0;
+    flex: 1;
+    
+    background-color: rgba(0,0,0,0);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.2);
+    
+    font-size: 20px;
+    text-align: center;
+}
+
+.number_input:focus {
+    outline: none;
+}
+
+
+.number_input::-webkit-outer-spin-button,
+.number_input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* BUTTON INPUT */
+
+.control_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.button_group {
+    margin: 0 1vw;
+}
+
+.button_input {
+    flex-shrink: 1;
+    border: none;
+    /*margin: 2vh 1vw;*/
+    margin: 0 0;
+    min-width: 3vw;
+    width: 3vw;
+    height: 3vw;
+    background-color: rgba(0,0,0,0);
+    background-repeat: no-repeat;
+    background-size: cover;
+    image-rendering: smooth;
+
+    transition: background-color 0.1s;
+}
+
+#motor_state_on_button {
+    background-image: url('Assets/Icons/power_on_scaled.png');
+}
+
+#motor_state_off_button {
+    background-image: url('Assets/Icons/power_off_scaled.png');
+}
+
+#vfm_up_button {
+    background-image: url('Assets/Icons/vfm_up_scaled.png');
+}
+
+#vfm_down_button {
+    background-image: url('Assets/Icons/vfm_down_scaled.png');
+}
+
+#acceleration_button {
+    background-image: url('Assets/Icons/set_acceleration_scaled.png');
+}
+
+#regen_button {
+    background-image: url('Assets/Icons/set_regen_scaled.png');
+}
+
+.button_input:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.button_input:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.console {
+    display: flex;
+    flex-direction: column;
+    margin: 2vh 1vw;
+    position: relative;
+    flex: 1;
+}
+
+.dual_console {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.terminal_container {
+    display: flex;
+    flex-direction: column;
+}
+
+#sent_terminal_container {
+    flex-grow: 1;
+}
+
+#recv_terminal_container {
+    flex-grow: 2;
+}
+
+.terminal {
+    flex: 1 0 0;
+    margin: 0 1vw;
+    
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.2);
+
+    overflow: auto;
+    white-space: pre-line;
+}
+
+.text_input {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 2vh 1vw;
+
+    background-color: rgba(0,0,0,0);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.2);
+
+    font-size: 20px;
+    text-align: left;
+}
+
+.text_input:focus {
+    outline: none;
+}
+
+.tooltip {
+    position: relative;
+}
+
+.tooltiptext {
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    display: inline-block;
+
+    opacity: 0;
+    color: #fff;
+    text-align: right;
+    padding: 5px;
+    
+    transition: opacity 0.4s, top 0.3s;
+
+    z-index: 5;
+
+    top: -25px;
+    right: 0;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    opacity: 1;
+    top: -30px;
+    right: 0;
+}

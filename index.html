@@ -1,0 +1,94 @@
+ <!DOCTYPE html>
+<html>
+  <body>  
+    <div class="blurbox_main">
+      <h1 class="text_center">BLUE SKY SOLAR RACING</h1>
+      <div class="container_super">
+        <div class="right_side_container">
+          <div class="controls panel">
+            <p class="text_center">DYNO CONTROLS</p>
+              <div class="control_buttons">
+                <div class="button_group">
+                  <button class="button_input tooltip" onclick="set_motor_state('on')"  id="motor_state_on_button">
+                    <span class="tooltiptext non_interactive sub_panel">Motor ON</span>
+                  </button>
+                  <button class="button_input tooltip" onclick="set_motor_state('off')" id="motor_state_off_button">
+                    <span class="tooltiptext non_interactive sub_panel">Motor OFF</span>
+                  </button>
+                </div>
+                <div class="button_group">
+                  <button class="button_input tooltip" onclick="set_vfm('up')"          id="vfm_up_button">
+                    <span class="tooltiptext non_interactive sub_panel">Increase VFM</span>
+                  </button>
+                  <button class="button_input tooltip" onclick="set_vfm('down')"        id="vfm_down_button">
+                    <span class="tooltiptext non_interactive sub_panel">Decrease VFM</span>
+                  </button>
+                </div>
+              </div>
+              <div class="control_slider">
+                <div class="dual_slider">
+                  <input type="range" min="0" max="100" value="0" class="slider_input" id="acceleration_slider">
+                  <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="acceleration_slider_vis">
+                </div>
+                <input type="number" min="0" max="100" value="0" class="number_input"  id="acceleration_number">
+                <button type="button" class="button_input tooltip" id="acceleration_button" onclick="set_acceleration()">
+                  <span class="tooltiptext non_interactive sub_panel">Set Acceleration</span>
+                </button>
+              </div>
+              <div class="control_slider">
+                <div class="dual_slider">
+                  <input type="range" min="0" max="100" value="0" class="slider_input" id="regen_slider">
+                  <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="regen_slider_vis">
+                </div>
+                <input type="number" min="0" max="100" value="0" class="number_input"  id="regen_number">
+                <button type="button" class="button_input tooltip" id="regen_button" onclick="set_regen()">
+                  <span class="tooltiptext non_interactive sub_panel" >Set Regeneration</span>
+                </button>
+              </div>
+          </div>
+          <div class="console panel">
+            <p class="text_center">CONSOLE</p>
+            <div class="dual_console">
+              <div class="terminal_container" id="sent_terminal_container">
+                <p class="text_center">SENT</p>
+                <p class="terminal" id="sent_terminal">> </p>
+              </div>
+              <div class="terminal_container" id="recv_terminal_container">
+                <p class="text_center">RECIEVED</p>
+                <p class="terminal" id="recv_terminal">> </p>
+              </div>
+            </div>
+            <input type="text" class="text_input" id="conole_send">
+          </div>
+        </div>
+        <div class="left_side_container">
+          <div class="graph_wrap panel">
+            <p class="text_center text_scaled">HALL EFFECT (RPM)</p>
+            <canvas id="hall_effect_chart" class="graph"></canvas>
+          </div>
+          <div class="graph_wrap panel">
+            <p class="text_center text_scaled">MOTOR PSM</p>
+            <canvas id="motor_psm_chart" class="graph"></canvas>
+          </div>
+          <div class="h_group">
+            <div class="graph_wrap panel">
+              <p class="text_center text_scaled">ACCELERATION</p>
+              <canvas id="acceleration_chart" class="graph"></canvas>
+            </div>
+            <div class="graph_wrap panel">
+              <p class="text_center text_scaled">REGENERATION</p>
+              <canvas id="regen_chart" class="graph"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="Javascript/cbuf.js"></script>
+    <script src="Javascript/graph_config.js"></script>
+    <script src="./socket.js"></script>
+  </head>
+</html> 
