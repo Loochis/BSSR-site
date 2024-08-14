@@ -40,7 +40,9 @@ class DataManager:
         json_dat = {'acceleration': self.acceleration, 
                     'regen': self.regen, 
                     'hall_effect': self.hall_effect,
-                    'motor_psm': self.motor_psm
+                    'motor_psm': self.motor_psm,
+                    'motor_state': self.motor_state,
+                    'vfm': self.vfm
                     }
         return json.dumps(json_dat)
         
