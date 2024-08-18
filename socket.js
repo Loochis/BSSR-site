@@ -2,8 +2,8 @@
 //var socket_ip = "ws://".concat(host_ip).concat(":8080");
 const socket = new WebSocket('/ws');
 
-const cbuf_len = 1000;
-const polling_rate = 0.05;
+const cbuf_len = 500;
+const polling_rate = 0.1;
 
 let chart_labels = [cbuf_len];
 for (let i = 0; i < cbuf_len; i++) {
@@ -12,13 +12,15 @@ for (let i = 0; i < cbuf_len; i++) {
 }
 
 let hall_effect_cbuf = new Dequeue(cbuf_len, 0);
-let motor_psm_cbuf = new Dequeue(cbuf_len, 0);
+let motor_psm_voltage_cbuf = new Dequeue(cbuf_len, 0);
+let motor_psm_current_cbuf = new Dequeue(cbuf_len, 0);
 let acceleration_cbuf = new Dequeue(cbuf_len, 0);
 let regen_cbuf = new Dequeue(cbuf_len, 0);
 
 // -- READOUTS -- //
 const hall_effect_readout = document.getElementById("hall_effect_readout");
-const motor_psm_readout = document.getElementById("motor_psm_readout");
+const motor_psm_voltage_readout = document.getElementById("motor_psm_voltage_readout");
+const motor_psm_current_readout = document.getElementById("motor_psm_current_readout");
 const acceleration_readout = document.getElementById("acceleration_readout");
 const regen_readout = document.getElementById("regen_readout");
 const motor_state_readout = document.getElementById("motor_state_readout");
@@ -29,7 +31,8 @@ const regen_slider_readout = document.getElementById("regen_slider_readout");
 
 //  -- GRAPHING -- //
 const hall_effect_chart_ctx = document.getElementById("hall_effect_chart").getContext("2d");
-const motor_psm_chart_ctx = document.getElementById("motor_psm_chart").getContext("2d");
+const motor_psm_voltage_chart_ctx = document.getElementById("motor_psm_voltage_chart").getContext("2d");
+const motor_psm_current_chart_ctx = document.getElementById("motor_psm_current_chart").getContext("2d");
 const acceleration_chart_ctx = document.getElementById("acceleration_chart").getContext("2d");
 const regen_chart_ctx = document.getElementById("regen_chart").getContext("2d");
 
@@ -38,11 +41,17 @@ hall_effect_json.data.labels = chart_labels;
 hall_effect_json.data.datasets[0].label = "Hall Effect";
 let hall_effect_chart = new Chart(hall_effect_chart_ctx, hall_effect_json); // < Cursed AF
 
-let motor_psm_json = JSON.parse(JSON.stringify(GRAPH_CFG));
-motor_psm_json.data.labels = chart_labels;
-motor_psm_json.data.datasets[0].label = "Motor PSM";
-let motor_psm_chart = new Chart(motor_psm_chart_ctx, motor_psm_json); // < Cursed AF
+let motor_psm_voltage_json = JSON.parse(JSON.stringify(GRAPH_CFG));
+motor_psm_voltage_json.data.labels = chart_labels;
+motor_psm_voltage_json.data.datasets[0].label = "Motor PSM Voltage";
+motor_psm_voltage_json.options.aspectRatio = 3;
+let motor_psm_voltage_chart = new Chart(motor_psm_voltage_chart_ctx, motor_psm_voltage_json); // < Cursed AF
 
+let motor_psm_current_json = JSON.parse(JSON.stringify(GRAPH_CFG));
+motor_psm_current_json.data.labels = chart_labels;
+motor_psm_current_json.data.datasets[0].label = "Motor PSM Current";
+motor_psm_current_json.options.aspectRatio = 3;
+let motor_psm_current_chart = new Chart(motor_psm_current_chart_ctx, motor_psm_current_json); // < Cursed AF
 
 let acceleration_json = JSON.parse(JSON.stringify(GRAPH_CFG));
 acceleration_json.data.labels = chart_labels;
@@ -67,29 +76,34 @@ socket.onmessage = function(event) {
       json_obj = JSON.parse(event.data);
       
       let hall_effect_data = json_obj.hall_effect;
-      let motor_psm_data = json_obj.motor_psm;
+      let motor_psm_voltage_data = json_obj.motor_psm_voltage;
+      let motor_psm_current_data = json_obj.motor_psm_current;
       let acceleration_data = json_obj.acceleration;
       let regen_data = json_obj.regen;
       let motor_state_data = json_obj.motor_state;
       let vfm_data = json_obj.vfm;
     
       hall_effect_cbuf.push(hall_effect_data);
-      motor_psm_cbuf.push(motor_psm_data);
+      motor_psm_voltage_cbuf.push(motor_psm_voltage_data);
+      motor_psm_current_cbuf.push(motor_psm_current_data);
       acceleration_cbuf.push(acceleration_data);
       regen_cbuf.push(regen_data);
     
       hall_effect_chart.data.datasets[0].data = hall_effect_cbuf.buffer;
-      motor_psm_chart.data.datasets[0].data = motor_psm_cbuf.buffer;
+      motor_psm_voltage_chart.data.datasets[0].data = motor_psm_voltage_cbuf.buffer;
+      motor_psm_current_chart.data.datasets[0].data = motor_psm_current_cbuf.buffer;
       acceleration_chart.data.datasets[0].data = acceleration_cbuf.buffer;
       regen_chart.data.datasets[0].data = regen_cbuf.buffer;
       
       hall_effect_chart.update();
-      motor_psm_chart.update();
+      motor_psm_voltage_chart.update();
+      motor_psm_current_chart.update();
       acceleration_chart.update();
       regen_chart.update();
       
       hall_effect_readout.innerHTML = "[".concat(hall_effect_data.toFixed(2)).concat("]");
-      motor_psm_readout.innerHTML = "[".concat(motor_psm_data.toFixed(2)).concat("]");
+      motor_psm_voltage_readout.innerHTML = "[".concat(motor_psm_voltage_data.toFixed(2)).concat("]");
+      motor_psm_current_readout.innerHTML = "[".concat(motor_psm_current_data.toFixed(2)).concat("]");
       acceleration_readout.innerHTML = "[".concat(acceleration_data.toFixed(2)).concat("]");
       regen_readout.innerHTML = "[".concat(regen_data.toFixed(2)).concat("]");
       
@@ -116,7 +130,7 @@ function SendCommand(s) {
     //let utf8Encode = new TextEncoder();
     sent_terminal.textContent += s.concat("\n > ");
     sent_terminal.scrollTop = sent_terminal.scrollHeight;
-    socket.send(s);
+    socket.send(s.concat("\n"));
 }
 
 function FloatToCMD(f) {

@@ -18,8 +18,10 @@ class Server:
     # starts the server - call this with an event loop
     async def start_server(self):
         await self.runner.setup()
+        print("runner online")
         site = web.TCPSite(self.runner, self.host, self.port)
         await site.start()
+        print("site online")
 
     # creates the runner
     def create_runner(self):

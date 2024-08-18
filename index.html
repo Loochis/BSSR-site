@@ -75,14 +75,23 @@
             </div>
             <canvas id="hall_effect_chart" class="graph"></canvas>
           </div>
-          <div class="graph_wrap panel">
-            <div class="flex_row">
-              <p class="text_left text_scaled">MOTOR PSM (V..?)</p>
-              <p class="text_right text_scaled" id="motor_psm_readout">[0.00]</p>
-            </div>
-            <canvas id="motor_psm_chart" class="graph"></canvas>
-          </div>
           <div class="h_group">
+            <div class="graph_wrap panel">
+              <div class="flex_row">
+                <p class="text_left text_scaled">Motor PSM Voltage (V)</p>
+                <p class="text_right text_scaled" id="motor_psm_voltage_readout">[0.00]</p>
+              </div>
+              <canvas id="motor_psm_voltage_chart" class="graph"></canvas>
+            </div>
+            <div class="graph_wrap panel">
+              <div class="flex_row">
+                <p class="text_left text_scaled">Motor PSM Current (A)</p>
+                <p class="text_right text_scaled" id="motor_psm_current_readout">[0.00]</p>
+              </div>
+              <canvas id="motor_psm_current_chart" class="graph"></canvas>
+            </div>
+          </div> 
+	  <div class="h_group">
             <div class="graph_wrap panel">
               <div class="flex_row">
                 <p class="text_left text_scaled">ACCELERATION (FRAC)</p>
@@ -104,7 +113,7 @@
   </body>
   <head>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="Javascript/Chart.js"></script>
     <script src="Javascript/cbuf.js"></script>
     <script src="Javascript/graph_config.js"></script>
     <script src="./socket.js"></script>

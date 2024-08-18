@@ -7,17 +7,18 @@ const GRAPH_CFG = {
         backgroundColor: 'rgba(255,255,255, 0.3)',
         borderColor: 'rgba(255,255,255, 1)',
         borderWidth: 1.5,
-        fill: true
+        fill: true,
+	    pointRadius: 0
     }]
 },
     options: {
         tooltips: {enabled: false},
         hover: {mode: 'none'},
         animation: false,
-        animations: {y: false, x: false},
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 6,
+	    spanGaps: true,
         legend: {
             display: false
         },
