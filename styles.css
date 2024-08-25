@@ -272,6 +272,14 @@ p {
     background-image: url('Assets/Icons/set_regen_scaled.png');
 }
 
+#log_start_button {
+    background: rgba(255,255,255,1);
+}
+
+#log_stop_button {
+    background: rgba(255,255,255,1);
+}
+
 .readout_group {
     margin: 0 0;
     flex-shrink: 1;

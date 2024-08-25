@@ -8,6 +8,18 @@
           <div class="controls panel">
             <p class="text_center">DYNO CONTROLS</p>
               <div class="control_buttons">
+		<div class="readout_group">
+                  <div class="button_group">
+		    <input type="text" class="text_input" id="log_name">
+                    <button class="button_input tooltip" onclick="log_start()"          id="log_start_button">
+                      <span class="tooltiptext non_interactive sub_panel">Start Log</span>
+                    </button>
+                    <button class="button_input tooltip" onclick="log_stop()"        id="log_stop_button">
+                      <span class="tooltiptext non_interactive sub_panel">Stop Log</span>
+                    </button>
+                  </div>
+                  <div class="readout_text" id="log_readout">Logging: NONE</div>
+	      	</div>
                 <div class="readout_group">
                   <div class="button_group">
                     <button class="button_input tooltip" onclick="set_motor_state('on')"  id="motor_state_on_button">
@@ -29,9 +41,8 @@
                     </button>
                   </div>
                   <div class="readout_text" id="vfm_readout">VFM: 0</div>
-                </div>
-              </div>
-              <div class="control_slider">
+                </div>	
+                </div><div class="control_slider">
                 <div class="dual_slider">
                   <input type="range" min="0" max="100" value="0" class="slider_input" id="acceleration_slider">
                   <input type="range" min="0" max="100" value="0" class="slider_input non_interactive" id="acceleration_slider_readout">

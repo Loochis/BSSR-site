@@ -18,7 +18,7 @@ class DataManager:
         self.motor_psm_current = 0
         
         self.motor_state = "off"
-        self.vfm = 0
+        self.vfm = 1
         
         # // DATA BUFFERS //
         self.acceleration_cbuf = collections.deque(maxlen=cbuf_len)

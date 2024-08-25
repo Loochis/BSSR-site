@@ -25,6 +25,7 @@ const acceleration_readout = document.getElementById("acceleration_readout");
 const regen_readout = document.getElementById("regen_readout");
 const motor_state_readout = document.getElementById("motor_state_readout");
 const vfm_readout = document.getElementById("vfm_readout");
+const log_readout = document.getElementById("log_readout");
 
 const acceleration_slider_readout = document.getElementById("acceleration_slider_readout");
 const regen_slider_readout = document.getElementById("regen_slider_readout");
@@ -238,6 +239,18 @@ function set_vfm(val) {
 
 function get_vfm() {
     SendCommand("get_vfm");
+}
+
+const log_name = document.getElementById("log_name");
+
+function log_start() {
+    SendCommand("set_log ".concat(log_name.value));
+    log_readout.innerHTML = "Logging: ".concat(log_name.value);
+}
+
+function log_stop() {
+    SendCommand("set_log stop")
+    log_readout.innerHTML = "Logging: NONE";
 }
 
 // Get the input field
